@@ -1,4 +1,6 @@
-# Metis Datacamp Project 1
+# NYC Metro data analysis
+
+##Make marketing campaign location recommedations by finding out the busiest station and time slot
 
 ### Group Participants:
 ### Ryan Murray, Sakura Lin, Travis Trumbly
