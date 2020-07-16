@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/index.css">
+
+    <title>Customer Reviews Summary</title>
+  </head>
+  <body>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-md'>
+          <div class='card'>
+            <div class='card-header text-center'>
+              <h3 class='card-title'><a href='/'>Customer Reviews Summary</a></h3>
+            </div>
+            <div class='card-body mt-3'>
+              <form action='/' method="post">
+                <div class="row">
+                  <div class="col">
+                    <fieldset class="form-group">
+                      <select class="custom-select" name="class">
+                        {%
+                          set options = ['Dresses', 'Pants', 'Blouses', 'Knits', 'Intimates', 'Outerwear', 'Lounge', 'Sweaters', 'Skirts', 'Fine gauge', 'Sleep', 'Jackets', 'Swim', 'Trend', 'Jeans', 'Shorts', 'Legwear', 'Layering', 'Casual bottoms', 'Chemises']
+                        %}
+                        <option selected>-------Select clothing class-------</option>
+                        {% for option in options %}
+                          <option value={{option}} {% if option == clothing_class %} selected {% endif %}>{{ option }}</option>
+                        {% endfor %}
+                      </select>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="customRadioInline1" name="polarity" class="custom-control-input" value="0" {{ 'checked' if polarity == '0' else '' }} />
+                        <label class="custom-control-label" for="customRadioInline1">Negative</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="customRadioInline2" name="polarity" class="custom-control-input" value="1" {{ 'checked' if polarity == '1' else '' }} />
+                        <label class="custom-control-label" for="customRadioInline2">Positive</label>
+                      </div>
+                      <small id="passwordHelpBlock" class="form-text text-muted">
+                        Please specify whether you want negative or positive reviews
+                      </small>
+                    </fieldset>
+                  </div>
+                  <div class="col-2 text-center">
+                    <h3 class="display-5">OR</h3>
+                  </div>
+                  <div class="col">
+                    <fieldset class="form-group">
+                      <input type="text" class="form-control" id="inputEmail3" name="clothing_id" placeholder="Clothing ID" value={{ clothing_id }}>
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-info btn-lg btn-block mb-2 mt-4">GO</button>
+                </div>
+              </form>
+              <br />
+              {% if result %}
+                <div class="row" id="graph-container">
+                  <div class="col">
+                    {{ result|safe }}
+                  </div>
+                  <div class="col">
+                    <ul class="list-unstyled">
+                      {% for item in dataset %}
+                        <li>{{item}}</li>
+                        <hr />
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Dashboard</h1>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-4">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{ tweets_count }}</h3>
+
+            <p>Number of Tweets</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-4">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{ positive_percent }}</h3>
+
+            <p>Positive Rate</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-4">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{ region_count }}</h3>
+
+            <p>Region Count</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+    </div>
+    <!-- /.row -->
+    <!-- Main row -->
+    <div class="row">
+      <!-- Left col -->
+      <section class="col-lg-6 connectedSortable">
+        <!-- Custom tabs (Charts with tabs)-->
+        <div class="card">
+          <div class="card-header d-flex p-0">
+            <h3 class="card-title p-3">
+              <i class="fas fa-chart-line mr-1"></i>
+              Weekly Trends
+            </h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+
+              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="embed-responsive embed-responsive-21by9">
+              <iframe class="embed-responsive-item" src={{ weekly_trends_url }}></iframe>
+            </div>
+          </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+        <!-- DIRECT CHAT -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-globe-americas mr-1"></i>
+              Source Locations
+            </h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+
+              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src={{ map_url }}></iframe>
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer bg-white p-0">
+            <ul class="nav nav-pills flex-column">
+              {% for item in rankings %}
+              <li class="nav-item">
+                <div class="nav-link">
+                  {{ item[0] }}
+                  <span class="float-right text-primary">
+                    {{ item[1] }}
+                  </span>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <!-- /.footer -->
+        </div>
+        <!--/.direct-chat -->
+
+        <!-- LDA Model -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              LDA Model
+            </h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            {{ lda_html|safe }}
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </section>
+      <!-- /.Left col -->
+      <!-- right col (We are only adding the ID to make the widgets sortable)-->
+      <section class="col-lg-6 connectedSortable">
+        <!-- Pie chart card -->
+        <div class="card">
+          <div class="card-header d-flex p-0">
+            <h3 class="card-title p-3">
+              <i class="fa fa-chart-pie mr-1"></i>
+              Sentiment Pie Chart
+            </h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+
+              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="embed-responsive embed-responsive-21by9">
+              <iframe class="embed-responsive-item" src={{ pie_url }}></iframe>
+            </div>
+          </div>
+          <!-- /.card-body-->
+        </div>
+        <!-- /.card -->
+
+        <!-- Calendar -->
+        <div class="card">
+          <div class="card-header">
+
+            <h3 class="card-title">
+              <i class="fa fa-calendar"></i>
+              Scatter
+            </h3>
+            <!-- tools card -->
+            <div class="card-tools">
+              <button type="button" class="btn btn-sm" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-sm" data-widget="remove">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+            <!-- /. tools -->
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            {{ scatter_html|safe }}
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </section>
+      <!-- right col -->
+    </div>
+    <!-- /.row (main row) -->
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+{% endblock %}
